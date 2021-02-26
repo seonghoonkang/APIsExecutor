@@ -6,7 +6,7 @@ import sample.apis.vo.ResponseApiDataVo;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PVDataCollector implements ApiWorker{
+public class WorkforceDataCollector implements ApiWorker{
     private ResponseApiDataVo response;
 
     @Override
