@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WorkerExecutor implements ActionApisExecutor {
-    List<ApiWorker> workers = new ArrayList<>();
+    private final List<ApiWorker> workers = new ArrayList<>();
     private boolean changed;
     private String actionId;
 
@@ -21,15 +21,25 @@ public class WorkerExecutor implements ActionApisExecutor {
     }
 
     @Override
-    public void removeWorker(ApiWorker worker) {
+    public void copyWorkers(List<ApiWorker> originWorkers) {
+        if (originWorkers == null) {
+            throw new NullPointerException("Can not register null worker list");
+        }
         synchronized (workers) {
-            workers.remove(worker);
+            workers.addAll(originWorkers);
         }
     }
 
     @Override
+    public void setPrimaryKey(String primaryKey) {
+        this.actionId = primaryKey;
+        this.changed = true;
+        executeAll();
+    }
+
+    @Override
     public void executeAll() {
-        List<ApiWorker> copyWorkers = null;
+        List<ApiWorker> copyWorkers;
         synchronized (workers) {
             if (!changed) return;
             copyWorkers = new ArrayList<>(workers);
@@ -38,12 +48,6 @@ public class WorkerExecutor implements ActionApisExecutor {
         for (ApiWorker worker : copyWorkers) {
             worker.execute(this);
         }
-    }
-
-    public void setActionId(String actionId) {
-        this.actionId = actionId;
-        this.changed = true;
-        executeAll();
     }
 
     public String getActionId() {

@@ -13,7 +13,7 @@ public class ExternalDataCollector implements ApiWorker{
     public void execute(WorkerExecutor executor) {
         response = new ResponseApiDataVo();
         Map<String, String> test = new HashMap<>();
-        test.put("Result", "External OpenAPI Result:: " + executor.getActionId());
+        test.put("Result", "EXTERNAL::" + executor.getActionId());
         response.setResultData(test);
     }
 

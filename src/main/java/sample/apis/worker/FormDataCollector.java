@@ -12,7 +12,7 @@ public class FormDataCollector implements ApiWorker {
     public void execute(WorkerExecutor executor) {
         response = new ResponseApiDataVo();
         FormDataVo data = new FormDataVo();
-        data.setFormName("BPM Form :: " + executor.getActionId());
+        data.setFormName("FORM::" + executor.getActionId());
         response.setResultData(data);
     }
 
