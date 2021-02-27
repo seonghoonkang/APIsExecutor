@@ -13,13 +13,14 @@ public class TestExecutionHandler {
     @Test
     public void runExecutor(){
         Map<String, Object> contrast = new HashMap<>();
-        String pk = "PK-001";
-        contrast.put("Form", "FORM::" + pk);
-        contrast.put("WorkForce", "WORKFORCE::" + pk);
-        contrast.put("External", "EXTERNAL::" + pk);
+        String primaryKey = "PK-001";
+        contrast.put("Form", "FORM::" + primaryKey);
+        contrast.put("WorkForce", "WORKFORCE::" + primaryKey);
+        contrast.put("External", "EXTERNAL::" + primaryKey);
 
-        Map<String, Object> map = ExecutionHandler.ACTION_ENGINE.getData(pk);
+        Map<String, Object> map = ExecutionHandler.ACTION_ENGINE.getData(primaryKey);
         assertTrue(map.equals(contrast));
+
         map.entrySet().forEach(e -> {
             System.out.println(e.getKey() + "::" + e.getValue());
         });
